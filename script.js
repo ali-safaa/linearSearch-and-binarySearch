@@ -1,38 +1,43 @@
 //linear search
 
-let arr = [1, 4, 8, 10, 12];
-let findNumber = 10;
-let numberTry = 0;
-for (let i = 0; i < arr.length; i++) {
-  numberTry++;
-  if (arr[i] == findNumber) {
-    console.log(`found number at ${numberTry} of try`);
-  }
-}
+// let arr = [1, 4, 8, 10, 12];
+// let findNumber = 10;
+// let numberTry = 0;
+// for (let i = 0; i < arr.length; i++) {
+//   numberTry++;
+//   if (arr[i] == findNumber) {
+//     console.log(`found number at ${numberTry} of try`);
+//   }
+// }
 
 //binary search
 
-let recursiveFunction = function (arr, x, start, end) {
+let h1 = document.querySelector('[data-arr]');
+let h2 = document.querySelector('[data-mid]');
+
+let recursiveFunction = async function (arr2, x, start, end) {
   if (start > end) return false;
-
+  await sleep(500);
   let mid = Math.floor((start + end) / 2);
-  console.log(mid);
-  if (arr[mid] === x) return true;
+  h2.innerHTML = arr2[mid];
 
-  if (arr[mid] > x) {
-    console.log('mid is big');
-    return recursiveFunction(arr, x, start, mid - 1);
+  if (arr2[mid] === x) {
+    h2.innerHTML = 'founded at index value ' + arr2[mid];
+  }
+
+  if (arr2[mid] > x) {
+    return await recursiveFunction(arr2, x, start, mid - 1);
   } else {
-    console.log('x is big');
-    return recursiveFunction(arr, x, mid + 1, end);
+    return await recursiveFunction(arr2, x, mid + 1, end);
   }
 };
 
 let arr2 = [1, 3, 5, 10, 15, 20];
 let x = 10;
+h1.innerHTML = `[${arr2}]`;
 
-if (recursiveFunction(arr, x, 0, arr.length - 1)) {
-  console.log('number is found');
-} else {
-  console.log('number is not found');
+recursiveFunction(arr2, x, 0, arr2.length - 1);
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
